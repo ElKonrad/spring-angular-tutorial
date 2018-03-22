@@ -1,0 +1,124 @@
+<div class="container">
+    <div class="row main">
+        <div class="panel-heading">
+            <div class="panel-title text-center">
+                <h1 class="title">Rejestracja</h1>
+            </div>
+        </div>
+        <div class="main-login main-center">
+            <form novalidate
+                  (ngSubmit)="registerUser()"
+                  [formGroup]="userForm">
+
+                <div class="form-group"
+                     [ngClass]="{'has-error': (userForm.get('email').touched ||
+                                                       userForm.get('email').dirty) &&
+                                                      !userForm.get('email').valid }">
+                    <label for="email" class="cols-sm-2 control-label">Adres email</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="email" id="email"
+                                   placeholder="Podaj adres email" formControlName="email"/>
+                        </div>
+                        <span class="help-block" *ngIf="(userForm.get('email').touched ||
+                                                             userForm.get('email').dirty) &&
+                                                             userForm.get('email').errors">
+                                <span *ngIf="userForm.get('email').errors.required">
+                                    Adres email jest wymagany!
+                                </span>
+                                <span *ngIf="userForm.get('email').errors.email">
+                                    Niepoprawny adres email!
+                                </span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group"
+                     [ngClass]="{'has-error': (userForm.get('username').touched ||
+                                                       userForm.get('username').dirty) &&
+                                                      !userForm.get('username').valid }">
+                    <label for="username" class="cols-sm-2 control-label">Nazwa użytkownika</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="username" id="username"
+                                   placeholder="Podaj nazwę użytkownika" formControlName="username"/>
+                        </div>
+                        <span class="help-block" *ngIf="(userForm.get('username').touched ||
+                                                             userForm.get('username').dirty) &&
+                                                             userForm.get('username').errors">
+                                <span *ngIf="userForm.get('username').errors.required">
+                                    Nazwa użytkownika jest wymagana
+                                </span>
+                                <span *ngIf="userForm.get('username').errors.pattern">
+                                    Niepoprawna nazwa użytkownika
+                                </span>
+                        </span>
+                    </div>
+                </div>
+
+                <div formGroupName="passwordGroup"
+                     [ngClass]="{'has-error': userForm.get('passwordGroup').errors }">
+                    <div class="form-group"
+                         [ngClass]="{'has-error': (userForm.get('passwordGroup.password').touched ||
+                                                           userForm.get('passwordGroup.password').dirty) &&
+                                                          !userForm.get('passwordGroup.password').valid }">
+                        <label for="password" class="cols-sm-2 control-label">Hasło</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                <input type="password" class="form-control" name="password" id="password"
+                                       placeholder="Podaj hasło" formControlName="password"/>
+                            </div>
+                            <span class="help-block" *ngIf="(userForm.get('passwordGroup.password').touched ||
+                                                             userForm.get('passwordGroup.password').dirty) &&
+                                                             userForm.get('passwordGroup.password').errors">
+                                    <span *ngIf="userForm.get('passwordGroup.password').errors.required">
+                                        Hasło jest wymagane!
+                                    </span>
+                                    <span *ngIf="userForm.get('passwordGroup.password').errors.pattern">
+                                        Hasło musi składać się z co najmniej 6 znaków, jednej wielkiej litery i jednej cyfry
+                                    </span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group"
+                         [ngClass]="{'has-error': (userForm.get('passwordGroup.confirmPassword').touched ||
+                                                           userForm.get('passwordGroup.confirmPassword').dirty) &&
+                                                          !userForm.get('passwordGroup.confirmPassword').valid }">
+                        <label for="confirmPassword" class="cols-sm-2 control-label">Potwierdź hasło</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                <input type="password" class="form-control" name="password" id="confirmPassword"
+                                       placeholder="Podaj hasło" formControlName="confirmPassword"/>
+                            </div>
+                            <span class="help-block" *ngIf="(userForm.get('passwordGroup.confirmPassword').touched ||
+                                                             userForm.get('passwordGroup.confirmPassword').dirty) &&
+                                                             userForm.get('passwordGroup.confirmPassword').errors">
+                                    <span *ngIf="userForm.get('passwordGroup.confirmPassword').errors.required">
+                                        Hasło jest wymagane!
+                                    </span>
+                                </span>
+                            <span class="help-block" *ngIf="userForm.get('passwordGroup').errors?.passwordMatch">
+                                    Podane hasła nie są zgodne!
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block login-button" [disabled]="!userForm.valid">Utwórz konto</button>
+                </div>
+                <div class="login-register">
+                    <a [routerLink]="['/login']">Zaloguj się</a>
+                </div>
+                <div class="form-group" *ngIf="responseError && !isCreatedStatus()" style="padding-top: 15px;">
+                    <app-error [errorResponse]="responseError"></app-error>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
