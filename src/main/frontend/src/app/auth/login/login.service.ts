@@ -17,16 +17,16 @@ export class LoginService {
 
     loginUser(loginRequest: LoginRequest) {
         return this.http.post(this.loginURL, loginRequest)
-            .catch(err => this.handleError.handleError(err));
+                   .catch(err => this.handleError.handleError(err));
     }
 
     isAuthenticated() {
         return this.http.get(this.userURL + "/authentication")
-            .catch(err => this.handleError.handleError(err));
+                   .map(value => value.json());
     }
 
     getLoggedUsername() {
         return this.http.get(this.userURL + "/loggedUsername")
-            .catch(err => this.handleError.handleError(err));
+                   .catch(err => this.handleError.handleError(err));
     }
 }

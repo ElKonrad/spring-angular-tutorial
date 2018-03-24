@@ -25,7 +25,7 @@ public class TaskController {
         return new ResponseEntity<>(taskService.list(), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/save")
+    @PostMapping(value = "")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<Task> saveTask(@RequestBody Task task) {
         return new ResponseEntity<>(taskService.save(task), HttpStatus.CREATED);

@@ -16,10 +16,10 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.initializeCookieHeader();
+        this.removeUnnecessaryCookie();
     }
 
-    initializeCookieHeader() {
+    removeUnnecessaryCookie() {
         if (!this.ifUsernameCookieExists())
             this.cookieService.remove(this.USERNAME_COOKIE);
     }
@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit {
         return this.cookieService.get(this.USERNAME_COOKIE);
     }
 
-    ifUsernameCookieExists() {
+    ifUsernameCookieExists(): boolean {
         return this.cookieService.get(this.USERNAME_COOKIE) ? true : false;
     }
 }
