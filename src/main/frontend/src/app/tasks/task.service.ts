@@ -2,13 +2,14 @@ import {Http, Response} from "@angular/http";
 import "rxjs/Rx";
 import {Task} from "./task.model";
 import {EventEmitter, Injectable} from "@angular/core";
+import {HandleError} from "../error/handle-error";
 
 @Injectable()
 export class TaskService {
 
     onTaskAdded = new EventEmitter<Task>();
 
-    constructor(private http: Http) {
+    constructor(private http: Http, private handleError: HandleError) {
     }
 
     getTasks() {
@@ -17,7 +18,8 @@ export class TaskService {
                        (response: Response) => {
                            return response.json();
                        }
-                   );
+                   )
+                   .catch(err => this.handleError.handleError(err))
     }
 
     addTask(task: Task) {
@@ -26,7 +28,8 @@ export class TaskService {
                        (response: Response) => {
                            return response.json();
                        }
-                   );
+                   )
+                   .catch(err => this.handleError.handleError(err))
     }
 
     saveTask(task: Task, checked: boolean) {
@@ -37,7 +40,8 @@ export class TaskService {
                        (response: Response) => {
                            return response.json();
                        }
-                   );
+                   )
+                   .catch(err => this.handleError.handleError(err))
     }
 
 }
