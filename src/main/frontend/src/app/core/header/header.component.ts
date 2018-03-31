@@ -24,6 +24,10 @@ export class HeaderComponent implements OnInit {
             this.cookieService.remove(this.USERNAME_COOKIE);
     }
 
+    ifUsernameCookieExists(): boolean {
+        return this.cookieService.get(this.USERNAME_COOKIE) ? true : false;
+    }
+
     onLogout() {
         this.logoutService.logoutUser().subscribe(res => this.cookieService.remove(this.USERNAME_COOKIE));
         this.router.navigate(['/login']);
@@ -31,9 +35,5 @@ export class HeaderComponent implements OnInit {
 
     getUsername(): string {
         return this.cookieService.get(this.USERNAME_COOKIE);
-    }
-
-    ifUsernameCookieExists(): boolean {
-        return this.cookieService.get(this.USERNAME_COOKIE) ? true : false;
     }
 }

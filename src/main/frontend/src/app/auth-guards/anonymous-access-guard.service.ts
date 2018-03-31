@@ -11,6 +11,10 @@ export class AnonymousAccessGuardService implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
+        return this.isAnonymous();
+    }
+
+    private isAnonymous(): Observable<boolean> {
         return this.loginService.isAuthenticated()
                    .map(authenticated => {
                        this.navigateToHomePage(authenticated);
@@ -18,7 +22,7 @@ export class AnonymousAccessGuardService implements CanActivate {
                    });
     }
 
-    navigateToHomePage(authenticated: any) {
+    private navigateToHomePage(authenticated: any) {
         if (authenticated)
             this.router.navigate(['/']);
     }
